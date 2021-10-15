@@ -1,0 +1,12 @@
+@import '../../node_modules/@fortawesome/fontawesome-free/css/all.css';
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400&display=swap');
+
+:root {
+    --bg-color: #F5F5F5;
+}
+
+body {
+    background-color: var(--bg-color);
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+}
