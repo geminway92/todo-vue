@@ -2,7 +2,7 @@
     <div class="login">
       <h1>Bienvenido/a de nuevo</h1>
       <div class="container-img">
-          <img src="../assets/images/2151574.jpg" alt="">
+          <img src="/assets/images/2151574.jpg" alt="">
       </div>
       <form @submit.prevent="">
           <input 

@@ -14,18 +14,18 @@
             <input 
                 type="text" 
                 placeholder="Escribe su nombre"
-                v-model.trim="usuario.name">
+                v-model.trim="user.name">
             
             <input 
             type="email" 
             placeholder="Escribe su email" 
-            v-model.trim="usuario.email"
+            v-model.trim="user.email"
             autocomplete="username">
 
             <input 
             type="password" 
             placeholder="Escribe la contraseña" 
-            v-model.number="usuario.password"
+            v-model.number="user.password"
             autocomplete="new-password">
             
             <input 
@@ -43,11 +43,15 @@
 </template>
 
 <script>
+import { mapActions} from 'vuex'
+import { nanoid } from 'nanoid'
+
+
 export default {
     name: 'registration',
     data(){
         return {
-            usuario: {
+            user: {
                 id:  '',
                 name: '',
                 email: '',
@@ -58,27 +62,46 @@ export default {
         }
     },
     methods: {
+        ...mapActions( 'todo', ['setUser']),
         checkForm(){
             this.errors = []
 
-            if(!this.usuario.name){
+            if(!this.user.name){
                 this.errors.push('El nombre es obligatorio.')
             }
-            if(!this.usuario.email){
+            if(!this.user.email){
                 this.errors.push('El correo es obligatorio')
             }
-            if(!this.usuario.password || !this.confirmPassword){
+            if(!this.user.password || !this.confirmPassword){
                 this.errors.push('La contraseña es obligatoria')
 
             } else {
-                if(this.usuario.password !== this.confirmPassword ) {
+                if(this.user.password !== this.confirmPassword ) {
                     this.errors.push('La contraseña no coincide')
                 } 
-
             }
 
-            console.log(this.usuario)
+            if(this.user.name && this.user.email && this.user.password && this.user.password == this.confirmPassword) {
+
+                // generar id
+                this.user.id = nanoid()
+                console.log(this.user)
+    
+                // enviar los datos
+                this.setUser(this.user)
+    
+    
+                this.user = {
+                    id:  '',
+                    name: '',
+                    email: '',
+                    password: null ,
+                }
+            }
+            
+
         },
+        
         
         routerLogin(){
             this.$router.push({name: 'login'})

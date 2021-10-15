@@ -28,7 +28,7 @@
         </div>
       </div>
       <div class="boy-cartoon">
-        <img src="../assets/images/boy-check.jpg" alt="">
+        <img src="/assets/images/boy-check.jpg" alt="">
       </div>
     </div>
     <div class="introduccion">
