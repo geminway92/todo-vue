@@ -1,24 +1,15 @@
 
 export default {
 
-  name: 'todolayout',
-  component: () => import(/* webpackChunkName: "todolayout" */ '@/modules/todo/layout/TodoLayout.vue'),
+  name: 'todorouter',
+  component: () => import(/* webpackChunkName: "todorouter" */ '@/modules/todo/layout/TodoLayout.vue'),
   children: [
     {
       path: '',
-      name: 'Home',
-      component: () => import(/* webpackChunkName: "home" */ '../../todo/views/Home.vue')
+      name: 'todolayaout',
+      component: () => import(/* webpackChunkName: "home" */ '../../todo/layout/TodoLayout.vue')
     },
-    {
-      path: '/registration',
-      name: 'registration',
-      component: () => import(/* webpackChunkName: "registration"*/ '../views/Registration.vue')
-    },
-    {
-      path: '/login',
-      name: 'login',
-      component: () => import(/* webpackChunkName: "login"*/ '../views/Login.vue')
-    }
   ]
+  
 
 }

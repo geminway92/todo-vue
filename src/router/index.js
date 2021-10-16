@@ -1,13 +1,17 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import todoLayoutRouter from '../modules/todo/router'
+import authLayoutRouter from '../modules/auth/router'
+import todoRouter from '../modules/todo/router'
 
 
 const routes = [
   {
     path: '/',
-    ...todoLayoutRouter
-
+    ...authLayoutRouter
   },
+  {
+    path: '/todo',
+    ...todoRouter
+  }
   
 ]
 
