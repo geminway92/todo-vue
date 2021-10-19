@@ -1,2 +1,0 @@
-(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["todorouter"],{d087:function(n,o,e){"use strict";e.r(o);var t=e("7a23");function r(n,o,e,r,a,c){return Object(t["q"])(),Object(t["d"])("h1",null,"Welcome ANAND")}var a={name:"todolayaout"},c=e("6b0d"),d=e.n(c);const u=d()(a,[["render",r]]);o["default"]=u}}]);
-//# sourceMappingURL=todorouter.1f84924d.js.map

@@ -2,7 +2,7 @@
 export default {
 
   name: 'authlayout',
-  component: () => import(/* webpackChunkName: "todolayout" */ '@/modules/auth/layout/TodoLayout.vue'),
+  component: () => import(/* webpackChunkName: "todolayout" */ '@/modules/auth/layout/AuthLayout.vue'),
   children: [
     {
       path: '',

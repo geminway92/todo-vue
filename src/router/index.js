@@ -2,6 +2,8 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import authLayoutRouter from '../modules/auth/router'
 import todoRouter from '../modules/todo/router'
 
+import isAuthenticatedGuard from '../modules/auth/router/auth-guard'
+
 
 const routes = [
   {
@@ -10,6 +12,7 @@ const routes = [
   },
   {
     path: '/todo',
+    beforeEnter: [ isAuthenticatedGuard ],
     ...todoRouter
   }
   

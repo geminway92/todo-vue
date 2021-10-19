@@ -1,16 +1,7 @@
 
 export default () => ({
-    status: 'authenticating', // 'authenthicated', 'not-authenticated', 'authenthicating'
-    user: {
-        id:  '',
-        name: '',
-        email: '',
-        password: null ,
-        todolist: {
-            id: '',
-            todo: '',
-        },
-    },
+    status: 'not-authenticated', // 'authenthicated', 'not-authenticated', 'authenthicating'
+    user: null,
     idToken: null,
     refreshToken: null,
     

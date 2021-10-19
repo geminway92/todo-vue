@@ -57,7 +57,7 @@ export default {
                 name: '',
                 email: '',
                 password: '' ,
-                photoProfile:   'https://res.cloudinary.com/ddn278n2q/image/upload/v1634324957/profile/iuhnxokjoz8fjhy0qlge.jpg',
+                photoProfile:   'https://res.cloudinary.com/ddn278n2q/image/upload/v1634475163/ybhrunmkvusxfyp2h0vl.jpg',
             },
             ok: false,
             message: '...',

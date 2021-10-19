@@ -2,7 +2,7 @@
     <div class="login">
       <h1>Bienvenido/a de nuevo</h1>
       <div class="container-img">
-          <img src="assets/images/2151574.jpg" alt="">
+          <img src="../../../assets/images/2151574.jpg" alt="">
       </div>
       <form class="form-login" @submit.prevent="loginUser">
           <input 
@@ -33,6 +33,7 @@ export default {
     data(){
         return{
             user: {
+                name: '',
                 email: '',
                 password: '' ,
             },
@@ -52,6 +53,10 @@ export default {
                 resp.message = 'La cuenta de usuario ha sido desactivada por un administrador.'
             } else if(resp.message === 'EMAIL_NOT_FOUND'){
                 resp.message = 'No hay ningún registro de usuario correspondiente a este identificador. El usuario puede haber sido eliminado.'
+            } else if(resp.message === 'INVALID_EMAIL'){
+                resp.message = 'El correo no es válido o el usuario no tiene contraseña'
+            } else if(resp.message === 'MISSING_PASSWORD'){
+                resp.message = 'Falta la contraseña'
             }
 
             /*Salta la alerta si la resp.ok es false */
