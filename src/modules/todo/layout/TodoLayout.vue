@@ -36,16 +36,21 @@
       <ul class="task-list">
         <div v-for="task in tasks" :key="task.id" 
           class="container-list"
-          @click="task.completed = !task.completed">
-          <div 
+           @click="updateTask()">
+          <div
+            @click="task.completed = !task.completed"
             class="squareCheck"
             :class="{'completed-square' : task.completed }">
             </div>
           <li
+            @click="task.completed = !task.completed"
             :class="{'completed': task.completed }">
             {{task.text}}
             </li>
         </div>
+          <div @click="deleteTask()" class="container-icon-trash">
+            <i class="fas fa-trash"></i>
+          </div>
       </ul>
     </div>
   </div>
@@ -79,7 +84,7 @@ export default {
       }
     },
     methods: {
-      ...mapActions('todo',['createTaskAction','loadLocalStorage']),
+      ...mapActions('todo',['createTaskAction','loadLocalStorage','updateTaskLocalStorage','deleteTaskAction']),
 
       openModal(){
         this.showIconPlus = !this.showIconPlus
@@ -124,6 +129,19 @@ export default {
         console.log(this.newTask)
         console.log(this.showIconPlus)
 
+      },
+
+     async updateTask(){
+
+        this.updateTaskLocalStorage( this.tasks)
+    },
+
+      deleteTask(){
+        this.deleteTaskAction(this.tasks)
+          console.log(this.tasks)
+          // commit('deleteTask')  
+        
+        return
       },
 
       resetNewTask(){

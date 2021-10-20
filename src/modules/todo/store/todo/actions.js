@@ -19,14 +19,16 @@ export const loadLocalStorage = async ({commit} ) =>{
     localStorage.setItem('tasks', JSON.stringify([]))
 }
 
+export const updateTaskLocalStorage = ({commit}, tasks) => {
+    commit('updateTask',tasks)
+}
+
 export const createTaskAction = async ({commit}, task ) => {
 
     commit('createTask', task)
 }
 
-export const deleteTask = async ({commit}, task) => {
-    
-    
-    commit('delete', task)
+export const deleteTaskAction = async ({commit}, tasks) => {
+    commit('deleteTask', tasks)
 }
 

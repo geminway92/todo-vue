@@ -14,13 +14,15 @@ export const createTask = (state, newTask) => {
 }
 
 export const updateTask = (state, payload) => {
-    state.tasks = state.tasks.map(item => item.id === payload.id)
+    state.tasks = payload
     localStorage.setItem('tasks', JSON.stringify(state.tasks))
 }
 
-export const deleteTask = (state, task) => {
-    state.tareas = state.tareas.filter(item => item.id !== task )
+export const deleteTask = (state, payload) => {
+    console.log(payload)
+    const resp = payload.filter(item => item.completed !== true)
+    console.log(resp)
+    state.tasks = resp
     localStorage.setItem('tasks', JSON.stringify(state.tasks))
 
-   return state.tasks.push(task)
 }
