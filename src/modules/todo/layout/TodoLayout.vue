@@ -15,7 +15,7 @@
       <div class="circle-left"></div>
       <div class="circle-right"></div>
     </div>
-    <div class="container-icon-logout">
+    <div @click="onLogout()" class="container-icon-logout">
       <i class="fas fa-sign-out-alt"></i>
     </div>
     <div class="container-photo">
@@ -27,11 +27,14 @@
     </div>
     <h1 class="title-list">Lista de Tareas</h1>
     <div class="container-task-list">
+      <div class="container-title-icon-plus">
       <h5 class="title-daily-tasks">Tareas Diarias</h5>
-      
       <div @click="showIconPlus = !showIconPlus" class="container-icon-plus">
         <i class="far fa-plus-square"></i>
       </div>
+
+      </div>
+      
 
       <ul class="task-list">
         <div v-for="task in tasks" :key="task.id" 
@@ -57,7 +60,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions, mapState } from 'vuex';
+import { mapGetters, mapActions, mapState, mapMutations } from 'vuex';
 import NewTaskModal from '../components/NewTaskModal.vue'
 
 
@@ -85,6 +88,7 @@ export default {
     },
     methods: {
       ...mapActions('todo',['createTaskAction','loadLocalStorage','updateTaskLocalStorage','deleteTaskAction']),
+      ...mapMutations('auth', ['logout']),
 
       openModal(){
         this.showIconPlus = !this.showIconPlus
@@ -139,7 +143,6 @@ export default {
       deleteTask(){
         this.deleteTaskAction(this.tasks)
           console.log(this.tasks)
-          // commit('deleteTask')  
         
         return
       },
@@ -150,13 +153,19 @@ export default {
           text: '',
           completed: false,
         }
+      },
+
+      onLogout(){
+        console.log('hola')
+        this.$router.push({name: 'login'})
+        this.logout()
       }
     },
 
 
     computed: {
       ...mapGetters('auth', ['currentUser']),
-      ...mapState('todo',['tasks'])
+      ...mapState('todo',['tasks','user'])
       
     },
     created(){
@@ -272,30 +281,38 @@ ul {
 }
 
 .container-icon-plus {
-  width: min-content;
   position: absolute;
-  bottom: 83%;
-  left: 90%;
+  width: min-content;
+  bottom: 1em;
+  right: 1em;
   font-size: 1.2em;
   color: #FFE04F;
   cursor: pointer;
 }
 
 .container-task-list {
+  width: 90%;
   background-color: #FFFFFF;
   position: relative;
   border-radius: 10px;
-  width: 90%;
   height: 220px;
   margin: auto;
   bottom: 5.5em;
   box-shadow: #d2d2d2 1px 3px 5px;
   overflow: scroll;
+  overflow-x: hidden;
 }
 
+.container-title-icon-plus{
+  position: sticky;
+  top: 0;
+  background-color: #FFFFFF;
+  z-index: 1;
+  height: 50px;
+
+}
 
 .title-daily-tasks {
-  position: relative;
   margin: 0;
   font-weight: 600;
   font-size: 1em;
@@ -303,12 +320,13 @@ ul {
 }
 
 .container-list {
-  width: max-content;
   display: flex;
   position: relative;
   right: 1em;
   padding: .4em 0;
 }
+
+
 
 .task-list li {
   font-size: .9em;
@@ -336,6 +354,12 @@ ul {
 
 .completed-square {
   background-color: #FFD615;
+}
+
+.container-icon-trash  {
+  width: min-content;
+  position: relative;  
+  margin: 1em 15.5em;
 }
 
 </style>

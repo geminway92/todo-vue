@@ -16,13 +16,13 @@ export const loginUser = ( state, { user, idToken, refreshToken }) => {
     
 } 
 
-
+ 
 export const logout = ( state ) => {
-    state.user = null
+    // state.user = null
     state.idToken = null
     state.refreshToken = null
-    state.satus = 'not-authenticated'
-    
+    state.status = 'not-authenticated'
+    console.log('legó a la mutación')
     localStorage.removeItem('idToken')
     localStorage.removeItem('refreshToken')
 }
