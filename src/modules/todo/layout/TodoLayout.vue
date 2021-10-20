@@ -79,7 +79,7 @@ export default {
       }
     },
     methods: {
-      ...mapActions('todo',['createTaskAction']),
+      ...mapActions('todo',['createTaskAction','loadLocalStorage']),
 
       openModal(){
         this.showIconPlus = !this.showIconPlus
@@ -142,6 +142,7 @@ export default {
       
     },
     created(){
+      this.loadLocalStorage()
       /*Se ejecuta para que no aparezca en 0 */
       this.currentDate()
 
@@ -150,6 +151,7 @@ export default {
         this.currentDate()
         
       }, 1000);
+
     }
    
     
