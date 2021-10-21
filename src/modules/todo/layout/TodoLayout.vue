@@ -10,6 +10,14 @@
         :showIconPlus="showIconPlus"
       />
   </div>
+  <div 
+    v-if="openPhoto"
+    class="container-modal--photo">
+      <InputPhotoModal
+        @openModalPhoto="openModalPhoto"
+        @updatePhoto="updatePhoto"
+        :openPhoto="openPhoto"/>
+  </div>
   <div class="todo-layout">
     <div class="container-circle">
       <div class="circle-left"></div>
@@ -18,7 +26,7 @@
     <div @click="onLogout()" class="container-icon-logout">
       <i class="fas fa-sign-out-alt"></i>
     </div>
-    <div class="container-photo">
+    <div @click="openModalPhoto()" class="container-photo">
       <img :src="currentUser.photoProfile" alt="">
       <h1>¡Bienvenido/a <span>{{currentUser.name}}!</span></h1>
     </div>
@@ -62,12 +70,14 @@
 <script>
 import { mapGetters, mapActions, mapState, mapMutations } from 'vuex';
 import NewTaskModal from '../components/NewTaskModal.vue'
+import InputPhotoModal from '../components/InputPhotoModal.vue'
 
 
 export default {
     name: 'todolayaout',
     components: {
       NewTaskModal,
+      InputPhotoModal,
     },
 
     data(){
@@ -79,6 +89,8 @@ export default {
         minAddCero: 0,
         secondAddCero: 0,
         showIconPlus: true,
+        openPhoto: false,
+        picture: '',
         newTask: {
           id: '',
           text: '',
@@ -87,11 +99,15 @@ export default {
       }
     },
     methods: {
-      ...mapActions('todo',['createTaskAction','loadLocalStorage','updateTaskLocalStorage','deleteTaskAction']),
+      ...mapActions('todo',['createTaskAction','loadLocalStorage','updateTaskLocalStorage','deleteTaskAction','updateNewPhotoProfile']),
       ...mapMutations('auth', ['logout']),
 
       openModal(){
         this.showIconPlus = !this.showIconPlus
+      },
+
+      openModalPhoto(){
+        this.openPhoto = !this.openPhoto
       },
 
       currentDate(){
@@ -143,7 +159,7 @@ export default {
       deleteTask(){
         this.deleteTaskAction(this.tasks)
           console.log(this.tasks)
-        
+        console.log(this.$refs)
         return
       },
 
@@ -156,16 +172,28 @@ export default {
       },
 
       onLogout(){
-        console.log('hola')
         this.$router.push({name: 'login'})
         this.logout()
-      }
+      },
+
+      updatePhoto(picture){
+        const newPhoto = picture
+        const data = this.user
+        data.photoProfile = newPhoto
+        data.idToken = this.currentUser.id
+        console.log(data)
+        this.updateNewPhotoProfile(data)  
+      },
+
+      
+
     },
 
 
     computed: {
       ...mapGetters('auth', ['currentUser']),
-      ...mapState('todo',['tasks','user'])
+      ...mapState('todo',['tasks']),//He borrado el user puede ser que falle algo
+      ...mapState('auth',['user'])
       
     },
     created(){
@@ -237,17 +265,20 @@ ul {
 
 .container-photo {
   display: flex;
+  width: 360px;
   flex-direction: column;
   text-align: center;
   align-items: center;
   position: relative;
   bottom: 7em;
+  margin: auto;
 }
 
 .container-photo img {
-  width: 25%;
+  width: 100px;
+  height: 100px;
   border-radius: 100%;
-
+  object-fit: cover;
 }
 
 .container-photo h1 {
@@ -339,8 +370,8 @@ ul {
 
 
 .squareCheck {
-  width: 10px;
-  height: 10px;
+  min-width: 10px;
+  max-height: 10px;
   border: 2px solid black;
   margin-right: .8em;
   cursor: pointer;

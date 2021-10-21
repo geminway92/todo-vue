@@ -1,9 +1,5 @@
+import authApi from '@/api/authApi'
 
-    // export const setUser = async ({commit }, user ) => {
-
-    //     commit('setUserM', user )
-
-    // }
 
 export const loadLocalStorage = async ({commit} ) =>{
     try{
@@ -32,3 +28,9 @@ export const deleteTaskAction = async ({commit}, tasks) => {
     commit('deleteTask', tasks)
 }
 
+export const updateNewPhotoProfile = async ({commit}, data) => {
+  const idToken =  localStorage.getItem('idToken')
+    const { photoProfile} = data
+    const resp = await authApi.post(':update', {  idToken, photoUrl: photoProfile  })
+    console.log(resp)
+}
