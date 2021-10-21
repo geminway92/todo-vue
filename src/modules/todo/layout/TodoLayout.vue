@@ -221,6 +221,7 @@ button {
 
 ul {
   width: 90%;
+  min-height: 200px;
   position: relative;
   bottom: .7em;
 }
@@ -403,11 +404,17 @@ ul {
   border: 5px solid #E9E9E9;
 }
 
+
 @media screen and (min-width: 700px) {
+
+  .container-modal{
+    margin: auto;
+  }
 
   .container-icon-plus-dash{
     gap: 1.5em;
   }
+
 
   .container-task-list{
     min-height: 350px;

@@ -31,7 +31,7 @@ export default {
 
 <style scoped>
 input {
-  width: 84%;
+  width: 85%;
   height: 30px;
   padding-left: .5em;
   border-radius: 5px;
@@ -57,8 +57,9 @@ input {
     border-radius: 5px;
     height: min-content;
     top: 17em;
-    left: .9em;
+    margin: auto;
 }
+
 .container-form input {
     padding: 1em;
 }
@@ -80,11 +81,32 @@ input {
   }
 }
 
-@media screen and (min-width: 700px){
-    .container-form{
-        left: 0;
-        margin: auto;
+@media screen and (min-width: 360px){
+  input{
+      width: 81%;
+  }
+ 
+
+
+}
+
+@media screen and (min-width: 400px) {
+    input{
+        width: 90%;
     }
+
+    form{
+        width: 95%;
+    }
+}
+
+@media screen and (min-width: 700px){
+    
+    form{
+        width: 100%;
+    }
+
+  
     
     input{
         width: 630px;
