@@ -67,4 +67,63 @@ input {
     border: 1px solid #FFD615;
     outline: 0 none;
 }
+
+@media screen and (max-width: 320px) {
+  input {
+    width: 230px;
+  }
+
+  .container-form {
+    top: 6em;
+    left: 0em;
+    margin: auto;
+  }
+}
+
+@media screen and (min-width: 700px){
+    .container-form{
+        left: 0;
+        margin: auto;
+    }
+    
+    input{
+        width: 630px;
+    }
+}
+
+@media screen and (min-width: 800px){
+    
+    input{
+        min-width: 92%;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    input{
+        min-width: 95%;
+    }
+    
+    
+
+   
+
+}
+
+@media screen and (min-width: 1300px) {
+    input{
+        min-width: 95%;
+        position: relative;
+        left: .2em;
+    }
+   
+
+}
+
+@media screen and (min-width: 1700px) {
+    
+    .container-form{
+        width: 90%;
+    }
+
+}
 </style>

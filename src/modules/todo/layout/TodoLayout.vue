@@ -26,8 +26,8 @@
     <div @click="onLogout()" class="container-icon-logout">
       <i class="fas fa-sign-out-alt"></i>
     </div>
-    <div @click="openModalPhoto()" class="container-photo">
-      <img :src="currentUser.photoProfile" alt="">
+    <div class="container-photo">
+      <img @click="openModalPhoto()" :src="currentUser.photoProfile" alt="photoProfile">
       <h1>¡Bienvenido/a <span>{{currentUser.name}}!</span></h1>
     </div>
     <div class="container-clock">
@@ -37,32 +37,32 @@
     <div class="container-task-list">
       <div class="container-title-icon-plus">
       <h5 class="title-daily-tasks">Tareas Diarias</h5>
-      <div @click="showIconPlus = !showIconPlus" class="container-icon-plus">
-        <i class="far fa-plus-square"></i>
+      <div  class="container-icon-plus-dash">
+        <i @click="showIconPlus = !showIconPlus" class="far fa-plus-square"></i>
+        <i @click="deleteTask()" class="fas fa-trash icon-delete"></i>
       </div>
 
       </div>
       
+      <div class="container-ul">
 
-      <ul class="task-list">
-        <div v-for="task in tasks" :key="task.id" 
-          class="container-list"
-           @click="updateTask()">
-          <div
-            @click="task.completed = !task.completed"
-            class="squareCheck"
-            :class="{'completed-square' : task.completed }">
-            </div>
-          <li
-            @click="task.completed = !task.completed"
-            :class="{'completed': task.completed }">
-            {{task.text}}
-            </li>
-        </div>
-          <div @click="deleteTask()" class="container-icon-trash">
-            <i class="fas fa-trash"></i>
+        <ul class="task-list">
+          <div v-for="task in tasks" :key="task.id" 
+            class="container-list"
+            @click="updateTask()">
+            <div
+              @click="task.completed = !task.completed"
+              class="squareCheck"
+              :class="{'completed-square' : task.completed }">
+              </div>
+            <li
+              @click="task.completed = !task.completed"
+              :class="{'completed': task.completed }">
+              {{task.text}}
+              </li>
           </div>
-      </ul>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
@@ -220,6 +220,7 @@ button {
 }
 
 ul {
+  width: 90%;
   position: relative;
   bottom: .7em;
 }
@@ -311,12 +312,14 @@ ul {
   bottom: 5em;
 }
 
-.container-icon-plus {
+.container-icon-plus-dash {
+  display: flex;
+  gap: 1em;
   position: absolute;
   width: min-content;
   bottom: 1em;
   right: 1em;
-  font-size: 1.2em;
+  font-size: 1.3em;
   color: #FFE04F;
   cursor: pointer;
 }
@@ -326,7 +329,7 @@ ul {
   background-color: #FFFFFF;
   position: relative;
   border-radius: 10px;
-  height: 220px;
+  max-height: 240px;
   margin: auto;
   bottom: 5.5em;
   box-shadow: #d2d2d2 1px 3px 5px;
@@ -343,6 +346,11 @@ ul {
 
 }
 
+.icon-delete {
+  width: min-content;
+  color: red;
+}
+
 .title-daily-tasks {
   margin: 0;
   font-weight: 600;
@@ -356,8 +364,6 @@ ul {
   right: 1em;
   padding: .4em 0;
 }
-
-
 
 .task-list li {
   font-size: .9em;
@@ -387,10 +393,53 @@ ul {
   background-color: #FFD615;
 }
 
-.container-icon-trash  {
-  width: min-content;
-  position: relative;  
-  margin: 1em 15.5em;
+.container-task-list::-webkit-scrollbar{
+  width: 10px;
+
 }
 
+.container-task-list::-webkit-scrollbar-thumb{
+  border-radius: 10px;
+  border: 5px solid #E9E9E9;
+}
+
+@media screen and (min-width: 700px) {
+
+  .container-icon-plus-dash{
+    gap: 1.5em;
+  }
+
+  .container-task-list{
+    min-height: 350px;
+    margin-bottom: 1em;
+  }
+
+
+}
+
+@media screen and (min-width:800px) {
+  .title-list{
+    transform: translateY(50px);
+  }
+
+  .container-task-list{
+    transform: translateY(20%);
+  }
+}
+
+@media screen and (min-width: 1280px) {
+
+  .container-ul{
+    margin-bottom: 1em;
+  }
+  .title-list{
+    transform: translateY(0px);
+  }
+
+  .container-task-list{
+    transform: translateY(0%);
+    
+  }
+
+}
 </style>

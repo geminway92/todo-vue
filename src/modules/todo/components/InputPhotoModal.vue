@@ -92,5 +92,12 @@ button:active {
     left: .9em;
     text-align: center;
 }
+
+@media screen and (min-width: 700px){
+    .modal {
+        left: 0;
+        margin: auto;
+    }
+}
 </style>
 

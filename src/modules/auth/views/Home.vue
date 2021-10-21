@@ -169,5 +169,56 @@ export default {
   background-color: #FAE78C;
 }
 
+@media screen and (max-width: 320px) {
+    .home{
+      position: relative;
+      bottom: 6em;
+
+    }
+    
+}
+
+@media screen and (min-width: 700px) {
+
+  .introduccion{
+    width: 500px;
+    font-size: 2em;
+    margin: auto;
+  }
+
+  .container-button button{
+    height: 60px;
+    font-size: 1.5em;
+    margin: auto;
+  }
+
+}
+
+@media screen and (min-width: 800px) {
+
+  .home{
+    transform: translateY(60px );
+  }
+
+  .introduccion{
+    width: 500px;
+    font-size: 2em;
+    margin: auto;
+  }
+
+  .container-button button{
+    height: 60px;
+    font-size: 1.5em;
+    margin: auto;
+  }
+
+}
+
+@media screen and (min-width: 1280px) {
+  .home{
+    position: relative;
+    transform: translateY(0px );
+  }
+}
 
 </style>

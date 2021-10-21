@@ -219,4 +219,11 @@ li {
     font-size: .9em;
 }
 
+@media screen and (max-width: 320px) {
+    .registration{
+        position: relative;
+        bottom: 3em;
+    }
+}
+
 </style>

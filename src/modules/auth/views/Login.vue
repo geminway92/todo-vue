@@ -103,7 +103,6 @@ a {
 }
 
 .container-img {
-    width: min-content;
     margin-left: 4em;
     margin: 2em 4em ;
 }
@@ -138,7 +137,21 @@ a {
     font-size: .9em;
 }
 
+@media screen and (min-width: 700px) {
+    
+    button{
+        margin: auto;
+    }
+    
+    .form-login{
+        width: min-content;
+        display: flex;
+        flex-direction: column;
+        margin: auto;
+    }
 
+    
+}
 
 
 </style>
