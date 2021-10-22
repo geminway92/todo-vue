@@ -2,6 +2,7 @@
     <div
         @click.self="this.$emit('openModal')" 
         class="container-modal">
+
         <div class="container-form">
         <form @submit.prevent="this.$emit('createTask')">
                 <input 
@@ -30,8 +31,13 @@ export default {
 </script>
 
 <style scoped>
+form{
+    margin: auto;
+    width: 90%;
+}
+
 input {
-  /* width: 10px; */
+    width: 80%;
   height: 30px;
   padding-left: .5em;
   border-radius: 5px;
@@ -52,7 +58,7 @@ input {
 
 .container-form {
     position: relative;
-    width: 90%;
+    min-width: 200px;
     background-color: #FFEA8A;
     border-radius: 5px;
     height: min-content;
@@ -70,9 +76,6 @@ input {
 }
 
 @media screen and (max-width: 320px) {
-  input {
-    width: 230px;
-  }
 
   .container-form {
     top: 6em;
@@ -81,44 +84,28 @@ input {
   }
 }
 
-@media screen and (min-width: 360px){
-  input{
-      width: 81%;
-  }
- 
 
-
-}
 
 @media screen and (min-width: 400px) {
     input{
-        width: 310px;
+        width: 84%;
     }
 
-    form{
-        width: 95%;
-    }
 }
 
 @media screen and (min-width: 700px){
     
-    form{
-        width: 100%;
+    .container-form{
+        width: 700px;
     }
 
   
     
     input{
-        width: 630px;
+        width: 570px;
     }
 }
 
-@media screen and (min-width: 800px){
-    
-    input{
-        min-width: 92%;
-    }
-}
 
 @media screen and (min-width: 1200px) {
 
@@ -126,15 +113,10 @@ input {
         width: 600px;
     }
 
-    form{
-        width: 600px;
-        background-color: #FFEA8A;
-    }
 
     input{
         position: relative;
-        width: 0px;
-        right: .4em;
+        width: 480px;
     }
     
     
