@@ -3,11 +3,13 @@
     <div class="container-modal">
         <div class="container-form">
             <h1>¿Olvidaste la contraseña?</h1>
-            <form @submit.prevent="" >
+            <form @submit.prevent="changePassword(email)" >
                 <input
                     class="input-password"
                     type="text"
-                    placeholder="Escribe su email">
+                    keyup.enter="submit"
+                    placeholder="Escribe su email"
+                    v-model="email">
             </form>
             <h3>*Recibirá un correo con instrucciones para resetar su contraseña </h3>
         </div>
@@ -16,10 +18,22 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
     name: 'forgetPassword',
+    data(){
+        return{
+            email: ''
+        }
+    },
+
     methods: {
-        
+        ...mapActions('auth',['sendCodePaswword']),
+
+        changePassword(email){
+           
+            this.sendCodePaswword(email)
+        }
     }
 
 }

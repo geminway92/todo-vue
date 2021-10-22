@@ -84,3 +84,16 @@ export const checkAuth = async ({commit}) => {
 }
 
 
+export const sendCodePaswword = async ({commit}, email ) =>{
+    const requestType = 'PASSWORD_RESET'
+
+    try{
+        console.log('lo que llega de email',email)
+        const {data} = await authApi.post(':sendOobCode',{ requestType, email })
+    
+        console.log(data)
+        console.log(Response)
+    }catch (error){
+        console.log(error.response.data.error.errors[0].message)
+    }
+}
