@@ -18,6 +18,11 @@ export default {
       path: '/login',
       name: 'login',
       component: () => import(/* webpackChunkName: "login"*/ '../views/Login.vue'),
+    },
+    {
+      path: '/forgetPassword',
+      name:'forgetPassword',
+      component: () => import(/* webpackChunkName: "forgetpassword"*/ '../views/ForgetPassword.vue')
     }
   ]
 

@@ -15,7 +15,7 @@
           autocomplete="new-password"
           placeholder="Introduce tu contraseña"
           v-model="user.password">
-        <h5 class="password-forgot">Olvidé mi contraseña</h5>
+        <h5 @click="forgetpasswordViews()" class="password-forgot">Olvidé mi contraseña</h5>
             <button type="submit">Iniciar Sección</button>
       </form>
         <div class="container-button">
@@ -65,7 +65,13 @@ export default {
             else {
                 this.$router.push({name: 'todolayaout'})
             }
+        },
+
+        forgetpasswordViews(){
+            this.$router.push({name: 'forgetPassword'})
+
         }
+        
     },
     
     
