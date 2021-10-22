@@ -18,50 +18,53 @@
         @updatePhoto="updatePhoto"
         :openPhoto="openPhoto"/>
   </div>
-  <div class="todo-layout">
-    <div class="container-circle">
-      <div class="circle-left"></div>
-      <div class="circle-right"></div>
-    </div>
-    <div @click="onLogout()" class="container-icon-logout">
-      <i class="fas fa-sign-out-alt"></i>
-    </div>
-    <div class="container-photo">
-      <img @click="openModalPhoto()" :src="currentUser.photoProfile" alt="photoProfile">
-      <h1>¡Bienvenido/a <span>{{currentUser.name}}!</span></h1>
-    </div>
-    <div class="container-clock">
-      <h1><span>{{hours}}</span>: <span>{{minAddCero}}</span>: <span>{{secondAddCero}}</span></h1>
-    </div>
-    <h1 class="title-list">Lista de Tareas</h1>
-    <div class="container-task-list">
-      <div class="container-title-icon-plus">
-      <h5 class="title-daily-tasks">Tareas Diarias</h5>
-      <div  class="container-icon-plus-dash">
-        <i @click="showIconPlus = !showIconPlus" class="far fa-plus-square"></i>
-        <i @click="deleteTask()" class="fas fa-trash icon-delete"></i>
-      </div>
+  <div class="container-layout-todo">
 
+    <div class="todo-layout">
+      <div class="container-circle">
+        <div class="circle-left"></div>
+        <div class="circle-right"></div>
       </div>
-      
-      <div class="container-ul">
+      <div @click="onLogout()" class="container-icon-logout">
+        <i class="fas fa-sign-out-alt"></i>
+      </div>
+      <div class="container-photo">
+        <img @click="openModalPhoto()" :src="currentUser.photoProfile" alt="photoProfile">
+        <h1>¡Bienvenido/a <span>{{currentUser.name}}!</span></h1>
+      </div>
+      <div class="container-clock">
+        <h1><span>{{hours}}</span>: <span>{{minAddCero}}</span>: <span>{{secondAddCero}}</span></h1>
+      </div>
+      <h1 class="title-list">Lista de Tareas</h1>
+      <div class="container-task-list">
+        <div class="container-title-icon-plus">
+        <h5 class="title-daily-tasks">Tareas Diarias</h5>
+        <div  class="container-icon-plus-dash">
+          <i @click="showIconPlus = !showIconPlus" class="far fa-plus-square"></i>
+          <i @click="deleteTask()" class="fas fa-trash icon-delete"></i>
+        </div>
 
-        <ul class="task-list">
-          <div v-for="task in tasks" :key="task.id" 
-            class="container-list"
-            @click="updateTask()">
-            <div
-              @click="task.completed = !task.completed"
-              class="squareCheck"
-              :class="{'completed-square' : task.completed }">
-              </div>
-            <li
-              @click="task.completed = !task.completed"
-              :class="{'completed': task.completed }">
-              {{task.text}}
-              </li>
-          </div>
-        </ul>
+        </div>
+        
+        <div class="container-ul">
+
+          <ul class="task-list">
+            <div v-for="task in tasks" :key="task.id" 
+              class="container-list"
+              @click="updateTask()">
+              <div
+                @click="task.completed = !task.completed"
+                class="squareCheck"
+                :class="{'completed-square' : task.completed }">
+                </div>
+              <li
+                @click="task.completed = !task.completed"
+                :class="{'completed': task.completed }">
+                {{task.text}}
+                </li>
+            </div>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
@@ -425,21 +428,34 @@ ul {
 }
 
 @media screen and (min-width:800px) {
-  .title-list{
+
+   .title-list{
+    width: 600px;
+    margin: auto;
     transform: translateY(50px);
   }
 
   .container-task-list{
-    transform: translateY(20%);
+    width: 600px;
+    min-height: 20px;
+    transform: translateY(30%);
+    
   }
 }
 
-@media screen and (min-width: 1280px) {
+@media screen and (min-width: 1200px) {
+
+  .container-layout-todo{
+    width: 100vw;
+    height: 100vh;
+  }
 
   .container-ul{
     margin-bottom: 1em;
   }
+
   .title-list{
+    padding-bottom: 1em;
     transform: translateY(0px);
   }
 

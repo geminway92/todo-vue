@@ -89,14 +89,14 @@ button:active {
     border-radius: 5px;
     height: 120px;
     top: 17em;
-    left: .9em;
     text-align: center;
+    margin: auto;
 }
 
 @media screen and (min-width: 700px){
     .modal {
+        width: 600px;
         left: 0;
-        margin: auto;
     }
 }
 </style>

@@ -57,6 +57,13 @@ export default {
 
 <style scoped>
 
+.home{
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+
+}
+
 .container-drawing {
   width: max-content;
   height: 200px;
@@ -182,13 +189,13 @@ export default {
 
   .introduccion{
     width: 500px;
-    font-size: 2em;
+    font-size: 1.5em;
     margin: auto;
   }
 
   .container-button button{
     height: 60px;
-    font-size: 1.5em;
+    font-size: 1.3em;
     margin: auto;
   }
 
@@ -198,18 +205,6 @@ export default {
 
   .home{
     transform: translateY(60px );
-  }
-
-  .introduccion{
-    width: 500px;
-    font-size: 2em;
-    margin: auto;
-  }
-
-  .container-button button{
-    height: 60px;
-    font-size: 1.5em;
-    margin: auto;
   }
 
 }

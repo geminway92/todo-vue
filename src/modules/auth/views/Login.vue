@@ -111,6 +111,7 @@ a {
 .container-img {
     margin-left: 4em;
     margin: 2em 4em ;
+    
 }
 
 .container-button {
@@ -132,7 +133,9 @@ a {
 .password-forgot {
     color: #FFD200;
     font-size: 1em;
+    cursor: pointer;
 }
+
 
 .form-login button:active {
   background-color: #FAE78C;
@@ -149,6 +152,7 @@ a {
         margin: auto;
     }
     
+
     .form-login{
         width: min-content;
         display: flex;
@@ -159,5 +163,21 @@ a {
     
 }
 
+
+@media screen and (min-width: 800px) {    
+
+    .login{
+        transform: translateY(15%);
+    }
+    
+}
+
+@media screen and (min-width: 1200px) {    
+
+    .login{
+        transform: translateY(-10%);
+    }
+    
+}
 
 </style>

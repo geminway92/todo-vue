@@ -88,12 +88,13 @@ export const sendCodePaswword = async ({commit}, email ) =>{
     const requestType = 'PASSWORD_RESET'
 
     try{
-        console.log('lo que llega de email',email)
         const {data} = await authApi.post(':sendOobCode',{ requestType, email })
     
-        console.log(data)
-        console.log(Response)
+        return{ ok: true,}
+        
     }catch (error){
-        console.log(error.response.data.error.errors[0].message)
+        const messageError = error.response.data.error.errors[0].message
+
+        return { ok: false, message: messageError }
     }
 }
