@@ -114,9 +114,6 @@ export default {
             } else if( resp.message === 'OPERATION_NOT_ALLOWED'){
                 resp.message = 'Hemos bloqueado todas las solicitudes de este dispositivo debido a una actividad inusual. Vuelve a intentarlo más tarde.'
 
-            } else if ( resp.message === 'OPERATION_NOT_ALLOWED'){
-                resp.message = 'El inicio de sesión con contraseña está desactivado para este proyecto.'
-
             } else if( resp.message === 'INVALID_EMAIL'){
                 resp.message = 'El correo no es válido'
             }

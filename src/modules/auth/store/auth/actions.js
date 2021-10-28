@@ -36,7 +36,6 @@ export const signInUser = async ({commit }, user) => {
         const { displayName, idToken, refreshToken } = data
         user.name = displayName
 
-        console.log(data)
         delete user.password
         commit('loginUser', { user, idToken, refreshToken })
 
@@ -62,7 +61,6 @@ export const checkAuth = async ({commit}) => {
 
     try{
         const { data } = await authApi.post(':lookup', { idToken })
-        console.log(data.users[0])
         const { displayName, email, photoUrl } = data.users[0]
 
         const user = {

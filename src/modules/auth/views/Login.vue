@@ -7,12 +7,10 @@
       <form class="form-login" @submit.prevent="loginUser">
           <input 
             type="email"
-            autocomplete="email"
             placeholder="Introduce tu email"
             v-model="user.email">
           <input 
           type="password"
-          autocomplete="new-password"
           placeholder="Introduce tu contraseña"
           v-model="user.password">
         <h5 @click="forgetpasswordViews()" class="password-forgot">Olvidé mi contraseña</h5>
@@ -48,13 +46,13 @@ export default {
 
             /*Traducir mensaje a Español */
             if(resp.message === 'INVALID_PASSWORD'){
-                resp.message = 'La contraseña no es válida o el usuario no tiene contraseña.'
+                resp.message = 'La contraseña no es válida.'
             } else if(resp.message === 'USER_DISABLED'){
                 resp.message = 'La cuenta de usuario ha sido desactivada por un administrador.'
             } else if(resp.message === 'EMAIL_NOT_FOUND'){
-                resp.message = 'No hay ningún registro de usuario correspondiente a este identificador. El usuario puede haber sido eliminado.'
+                resp.message = ''
             } else if(resp.message === 'INVALID_EMAIL'){
-                resp.message = 'El correo no es válido o el usuario no tiene contraseña'
+                resp.message = ''
             } else if(resp.message === 'MISSING_PASSWORD'){
                 resp.message = 'Falta la contraseña'
             }

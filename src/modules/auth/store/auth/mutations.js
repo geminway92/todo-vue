@@ -22,7 +22,6 @@ export const logout = ( state ) => {
     state.idToken = null
     state.refreshToken = null
     state.status = 'not-authenticated'
-    console.log('legó a la mutación')
     localStorage.removeItem('idToken')
     localStorage.removeItem('refreshToken')
 }
