@@ -1,25 +1,20 @@
 <template>
-  <div 
-    v-if="!showIconPlus"
-    class="container-modal">
-
-      <NewTaskModal  
-        @createTask="createTask"
-        @openModal="openModal"
-        :newTask="newTask"
-        :showIconPlus="showIconPlus"
-      />
+  <div v-if="!showIconPlus" class="container-modal">
+    <NewTaskModal
+      @createTask="createTask"
+      @openModal="openModal"
+      :newTask="newTask"
+      :showIconPlus="showIconPlus"
+    />
   </div>
-  <div 
-    v-if="openPhoto"
-    class="container-modal--photo">
-      <InputPhotoModal
-        @openModalPhoto="openModalPhoto"
-        @updatePhoto="updatePhoto"
-        :openPhoto="openPhoto"/>
+  <div v-if="openPhoto" class="container-modal--photo">
+    <InputPhotoModal
+      @openModalPhoto="openModalPhoto"
+      @updatePhoto="updatePhoto"
+      :openPhoto="openPhoto"
+    />
   </div>
   <div class="container-layout-todo">
-
     <div class="todo-layout">
       <div class="container-circle">
         <div class="circle-left"></div>
@@ -29,39 +24,41 @@
         <i class="fas fa-sign-out-alt"></i>
       </div>
       <div class="container-photo">
-        <img @click="openModalPhoto()" :src="currentUser.photoProfile" alt="photoProfile">
-        <h1>¡Bienvenido/a <span>{{currentUser.name}}!</span></h1>
+        <img @click="openModalPhoto()" :src="currentUser.photoProfile" alt="photoProfile" />
+        <h1>
+          ¡Bienvenido/a
+          <span>{{ currentUser.name }}!</span>
+        </h1>
       </div>
       <div class="container-clock">
-        <h1><span>{{hours}}</span>: <span>{{minAddCero}}</span>: <span>{{secondAddCero}}</span></h1>
+        <h1>
+          <span>{{ hours }}</span>:
+          <span>{{ minAddCero }}</span>:
+          <span>{{ secondAddCero }}</span>
+        </h1>
       </div>
       <h1 class="title-list">Lista de Tareas</h1>
       <div class="container-task-list">
         <div class="container-title-icon-plus">
-        <h5 class="title-daily-tasks">Tareas Diarias</h5>
-        <div  class="container-icon-plus-dash">
-          <i @click="showIconPlus = !showIconPlus" class="far fa-plus-square"></i>
-          <i @click="deleteTask()" class="fas fa-trash icon-delete"></i>
+          <h5 class="title-daily-tasks">Tareas Diarias</h5>
+          <div class="container-icon-plus-dash">
+            <i @click="showIconPlus = !showIconPlus" class="far fa-plus-square"></i>
+            <i @click="deleteTask()" class="fas fa-trash icon-delete"></i>
+          </div>
         </div>
 
-        </div>
-        
         <div class="container-ul">
-
           <ul class="task-list">
-            <div v-for="task in tasks" :key="task.id" 
-              class="container-list"
-              @click="updateTask()">
+            <div v-for="task in tasks" :key="task.id" class="container-list" @click="updateTask()">
               <div
                 @click="task.completed = !task.completed"
                 class="squareCheck"
-                :class="{'completed-square' : task.completed }">
-                </div>
+                :class="{ 'completed-square': task.completed }"
+              ></div>
               <li
                 @click="task.completed = !task.completed"
-                :class="{'completed': task.completed }">
-                {{task.text}}
-                </li>
+                :class="{ 'completed': task.completed }"
+              >{{ task.text }}</li>
             </div>
           </ul>
         </div>
@@ -77,142 +74,140 @@ import InputPhotoModal from '../components/InputPhotoModal.vue'
 
 
 export default {
-    name: 'todolayaout',
-    components: {
-      NewTaskModal,
-      InputPhotoModal,
+  name: 'todolayaout',
+  components: {
+    NewTaskModal,
+    InputPhotoModal,
+  },
+
+  data() {
+    return {
+      date: '',
+      hours: 0,
+      minutes: 0,
+      seconds: 0,
+      minAddCero: 0,
+      secondAddCero: 0,
+      showIconPlus: true,
+      openPhoto: false,
+      picture: '',
+      newTask: {
+        id: '',
+        text: '',
+        completed: false,
+      }
+    }
+  },
+  methods: {
+    ...mapActions('todo', ['createTaskAction', 'loadLocalStorage', 'updateTaskLocalStorage', 'deleteTaskAction', 'updateNewPhotoProfile']),
+    ...mapMutations('auth', ['logout']),
+
+    openModal() {
+      this.showIconPlus = !this.showIconPlus
     },
 
-    data(){
-      return{
-        date: '',
-        hours: 0,
-        minutes: 0,
-        seconds: 0,
-        minAddCero: 0,
-        secondAddCero: 0,
-        showIconPlus: true,
-        openPhoto: false,
-        picture: '',
-        newTask: {
-          id: '',
-          text: '',
-          completed: false,
-        }
+    openModalPhoto() {
+      this.openPhoto = !this.openPhoto
+    },
+
+    currentDate() {
+      this.date = new Date(Date.now())
+
+      this.hours = this.date.getHours()
+      this.minutes = this.date.getMinutes()
+      this.seconds = this.date.getSeconds()
+
+      /*Se añade un 0 si el número es menor de 9, quedando este formato
+      00:00.00 */
+
+      if (this.minutes <= 9) {
+        this.minAddCero = '0' + this.minutes
+      } else {
+        this.minAddCero = this.minutes
+      }
+
+      if (this.seconds <= 9) {
+        this.secondAddCero = '0' + this.seconds
+      } else {
+        this.secondAddCero = this.seconds
+      }
+
+    },
+
+    createTask() {
+      if (this.newTask.text.length <= 0) {
+        return
+      } else {
+        console.log('he llegado')
+        this.newTask.id = this.date.getTime()
+
+        this.createTaskAction(this.newTask)
+        this.resetNewTask()
+        this.showIconPlus = true
+
+      }
+      this.$emit('create_task', this.newTask);
+    },
+
+    async updateTask() {
+
+      this.updateTaskLocalStorage(this.tasks)
+    },
+
+    deleteTask() {
+      this.deleteTaskAction(this.tasks)
+      console.log(this.tasks)
+      console.log(this.$refs)
+      return
+    },
+
+    resetNewTask() {
+      this.newTask = {
+        id: '',
+        text: '',
+        completed: false,
       }
     },
-    methods: {
-      ...mapActions('todo',['createTaskAction','loadLocalStorage','updateTaskLocalStorage','deleteTaskAction','updateNewPhotoProfile']),
-      ...mapMutations('auth', ['logout']),
 
-      openModal(){
-        this.showIconPlus = !this.showIconPlus
-      },
-
-      openModalPhoto(){
-        this.openPhoto = !this.openPhoto
-      },
-
-      currentDate(){
-        this.date = new Date(Date.now())
-        
-        this.hours = this.date.getHours()
-        this.minutes = this.date.getMinutes()
-        this.seconds = this.date.getSeconds()
-
-        /*Se añade un 0 si el número es menor de 9, quedando este formato
-        00:00.00 */
-
-        if(this.minutes <= 9 ){
-          this.minAddCero = '0' + this.minutes
-        } else {
-          this.minAddCero = this.minutes
-        }
-
-        if(this.seconds <= 9) {
-          this.secondAddCero = '0' + this.seconds
-        } else {
-          this.secondAddCero = this.seconds
-        }
-
-      },
-
-      createTask(){
-        if(this.newTask.text.length <= 0) {
-          return
-        } else {
-          console.log('he llegado')
-          this.newTask.id = this.date.getTime()
-
-          this.createTaskAction(this.newTask)
-          this.resetNewTask()
-          this.showIconPlus = true
-
-        }
-        console.log(this.newTask)
-        console.log(this.showIconPlus)
-
-      },
-
-     async updateTask(){
-
-        this.updateTaskLocalStorage( this.tasks)
+    onLogout() {
+      this.$router.push({ name: 'login' })
+      this.logout()
     },
 
-      deleteTask(){
-        this.deleteTaskAction(this.tasks)
-          console.log(this.tasks)
-        console.log(this.$refs)
-        return
-      },
-
-      resetNewTask(){
-        this.newTask = {
-          id: '',
-          text: '',
-          completed: false,
-        }
-      },
-
-      onLogout(){
-        this.$router.push({name: 'login'})
-        this.logout()
-      },
-
-      updatePhoto(picture){
-        const newPhoto = picture
-        const data = this.user
-        data.photoProfile = newPhoto
-        data.idToken = this.currentUser.id
-        console.log(data)
-        this.updateNewPhotoProfile(data)  
-      },
-
-      
-
+    updatePhoto(picture) {
+      const newPhoto = picture
+      const data = this.user
+      data.photoProfile = newPhoto
+      data.idToken = this.currentUser.id
+      console.log(data)
+      this.updateNewPhotoProfile(data)
     },
 
 
-    computed: {
-      ...mapGetters('auth', ['currentUser']),
-      ...mapState('todo',['tasks']),//He borrado el user puede ser que falle algo
-      ...mapState('auth',['user'])
-      
-    },
-    created(){
-      this.loadLocalStorage()
-      /*Se ejecuta para que no aparezca en 0 */
+
+  },
+
+
+  computed: {
+    ...mapGetters('auth', ['currentUser']),
+    ...mapState('todo', ['tasks']),//He borrado el user puede ser que falle algo
+    ...mapState('auth', ['user'])
+
+  },
+  created() {
+    this.loadLocalStorage()
+    /*Se ejecuta para que no aparezca en 0 */
+    this.currentDate()
+
+    /*Se ejecuta cada segundo para actualizar la información */
+    setInterval(() => {
       this.currentDate()
 
-      /*Se ejecuta cada segundo para actualizar la información */
-      setInterval(() => {
-        this.currentDate()
-        
-      }, 1000);
+    }, 1000);
 
-    }
-   
-    
+  }
+
+
 }
 </script>
 
@@ -226,15 +221,13 @@ ul {
   width: 90%;
   min-height: 200px;
   position: relative;
-  bottom: .7em;
+  bottom: 0.7em;
 }
-
 
 .todo-layout {
   background-color: var(--color-primary);
   width: 100%;
   height: 240px;
-  
 }
 .container-circle {
   display: flex;
@@ -243,7 +236,7 @@ ul {
 .circle-left,
 .circle-right {
   background-color: white;
-  opacity: .5;
+  opacity: 0.5;
   border-radius: 100%;
   width: 173px;
   height: 173px;
@@ -303,9 +296,9 @@ ul {
 }
 
 .container-clock span {
-  background: linear-gradient(0deg,#FEE15B  40%, #FAE68C 60%);
+  background: linear-gradient(0deg, #fee15b 40%, #fae68c 60%);
   border-radius: 10px;
-  padding: 0 .1em;
+  padding: 0 0.1em;
 }
 
 .title-list {
@@ -324,13 +317,13 @@ ul {
   bottom: 1em;
   right: 1em;
   font-size: 1.3em;
-  color: #FFE04F;
+  color: #ffe04f;
   cursor: pointer;
 }
 
 .container-task-list {
   width: 90%;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   position: relative;
   border-radius: 10px;
   max-height: 240px;
@@ -341,13 +334,12 @@ ul {
   overflow-x: hidden;
 }
 
-.container-title-icon-plus{
+.container-title-icon-plus {
   position: sticky;
   top: 0;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   z-index: 1;
   height: 50px;
-
 }
 
 .icon-delete {
@@ -359,110 +351,98 @@ ul {
   margin: 0;
   font-weight: 600;
   font-size: 1em;
-  padding: 1em 0em .3em 1em;
+  padding: 1em 0em 0.3em 1em;
 }
 
 .container-list {
   display: flex;
   position: relative;
   right: 1em;
-  padding: .4em 0;
+  padding: 0.4em 0;
 }
 
 .task-list li {
-  font-size: .9em;
+  font-size: 0.9em;
   font-weight: 500;
   list-style: none;
   position: relative;
-  bottom: .2em;
+  bottom: 0.2em;
   cursor: pointer;
 }
-
 
 .squareCheck {
   min-width: 10px;
   max-height: 10px;
   border: 2px solid black;
-  margin-right: .8em;
+  margin-right: 0.8em;
   cursor: pointer;
 }
 
 .completed {
   position: relative;
-  text-decoration: line-through #FFD615;
+  text-decoration: line-through #ffd615;
   text-decoration-thickness: 3px;
 }
 
 .completed-square {
-  background-color: #FFD615;
+  background-color: #ffd615;
 }
 
-.container-task-list::-webkit-scrollbar{
+.container-task-list::-webkit-scrollbar {
   width: 10px;
-
 }
 
-.container-task-list::-webkit-scrollbar-thumb{
+.container-task-list::-webkit-scrollbar-thumb {
   border-radius: 10px;
-  border: 5px solid #E9E9E9;
+  border: 5px solid #e9e9e9;
 }
-
 
 @media screen and (min-width: 700px) {
-
-  .container-modal{
+  .container-modal {
     margin: auto;
   }
 
-  .container-icon-plus-dash{
+  .container-icon-plus-dash {
     gap: 1.5em;
   }
 
-
-  .container-task-list{
+  .container-task-list {
     min-height: 350px;
     margin-bottom: 1em;
   }
-
-
 }
 
-@media screen and (min-width:800px) {
-
-   .title-list{
+@media screen and (min-width: 800px) {
+  .title-list {
     width: 600px;
     margin: auto;
     transform: translateY(50px);
   }
 
-  .container-task-list{
+  .container-task-list {
     width: 600px;
     min-height: 20px;
     transform: translateY(30%);
-    
   }
 }
 
 @media screen and (min-width: 1200px) {
-
-  .container-layout-todo{
+  .container-layout-todo {
     width: 100vw;
     height: 100vh;
   }
 
-  .container-ul{
+  .container-ul {
     margin-bottom: 1em;
   }
 
-  .title-list{
+  .title-list {
     padding-bottom: 1em;
     transform: translateY(0px);
   }
 
-  .container-task-list{
+  .container-task-list {
     transform: translateY(0%);
-    
   }
-
 }
 </style>

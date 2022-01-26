@@ -1,16 +1,15 @@
 <template>
-    <div
-        @click.self="this.$emit('openModal')" 
-        class="container-modal">
-
+    <div @click.self="this.$emit('openModal')" class="container-modal">
         <div class="container-form">
-        <form @submit.prevent="this.$emit('createTask')">
-                <input 
-                @submit="this.$emit('createTask')"
-                type="text"
-                keyup.enter="submit"
-                v-model="newTask.text"
-                placeholder="Escribe tu tarea">
+            <form @submit.prevent="this.$emit('createTask')">
+                <input
+                    id="input_newTask"
+                    @submit="this.$emit('createTask')"
+                    type="text"
+                    keyup.enter="submit"
+                    v-model="newTask.text"
+                    placeholder="Escribe tu tarea"
+                />
             </form>
         </div>
     </div>
@@ -18,10 +17,15 @@
 
 <script>
 export default {
-    emits: ['openModal','createTask'],
+    emits: ['openModal', 'createTask'],
     props: {
         newTask: {
-            type: Object
+            type: Object,
+            default: {
+                id: '',
+                text: '',
+                completed: false,
+            }
         },
         showIconPlus: {
             type: Boolean
@@ -31,20 +35,20 @@ export default {
 </script>
 
 <style scoped>
-form{
+form {
     margin: auto;
     width: 90%;
 }
 
 input {
     width: 80%;
-  height: 30px;
-  padding-left: .5em;
-  border-radius: 5px;
-  border: 1px solid #C2C2C2;
-  margin: 1em;
-  font-weight: 500;
-  font-size: .9em;
+    height: 30px;
+    padding-left: 0.5em;
+    border-radius: 5px;
+    border: 1px solid #c2c2c2;
+    margin: 1em;
+    font-weight: 500;
+    font-size: 0.9em;
 }
 
 .container-modal {
@@ -59,7 +63,7 @@ input {
 .container-form {
     position: relative;
     min-width: 200px;
-    background-color: #FFEA8A;
+    background-color: #ffea8a;
     border-radius: 5px;
     height: min-content;
     top: 17em;
@@ -70,60 +74,43 @@ input {
     padding: 1em;
 }
 
-.container-form input:focus{
-    border: 1px solid #FFD615;
+.container-form input:focus {
+    border: 1px solid #ffd615;
     outline: 0 none;
 }
 
 @media screen and (max-width: 320px) {
-
-  .container-form {
-    top: 6em;
-    left: 0em;
-    margin: auto;
-  }
+    .container-form {
+        top: 6em;
+        left: 0em;
+        margin: auto;
+    }
 }
-
-
 
 @media screen and (min-width: 400px) {
-    input{
+    input {
         width: 84%;
     }
-
 }
 
-@media screen and (min-width: 700px){
-    
-    .container-form{
+@media screen and (min-width: 700px) {
+    .container-form {
         width: 700px;
     }
 
-  
-    
-    input{
+    input {
         width: 570px;
     }
 }
 
-
 @media screen and (min-width: 1200px) {
-
-    .container-form{
+    .container-form {
         width: 600px;
     }
 
-
-    input{
+    input {
         position: relative;
         width: 480px;
     }
-    
-    
-
-   
-
 }
-
-
 </style>
